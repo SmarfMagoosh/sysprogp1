@@ -29,7 +29,7 @@ typedef struct _stru_mem_list
 {
     int slot_size;    // the slot size of this list
     int batch_count;  // the number of memory batches in this list
-    unsigned char * free_slots_bitmap; // the bitmap of free slots in this list
+    unsigned char* free_slots_bitmap; // the bitmap of free slots in this list
     int bitmap_size; // the size in bytes of the bitmap
     struct _stru_mem_batch* first_batch; // points to the first memory batch of this list
     struct _stru_mem_list* next_list; // points to the next memory list

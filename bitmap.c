@@ -36,7 +36,9 @@ int bitmap_bit_is_set(unsigned char* bitmap, int size, int target_pos)
             BITMAP_OP_NOT_FOUND on any errors.
 */
 static int find_first_set_bit(unsigned char* bitmap, int size) {
-    for (int i = 0; i < size; i++) {
+    // iterate over every bit (left shift necessary since size is in bytes)
+    for (int i = 0; i < size << 3; i++) {
+        // if its set, return its position
         if (bitmap_bit_is_set(bitmap, size, i)) {
             return i;
         }
@@ -52,7 +54,9 @@ static int find_first_set_bit(unsigned char* bitmap, int size) {
             BITMAP_OP_NOT_FOUND on any errors.
 */
 static int find_first_unset_bit(unsigned char* bitmap, int size) {
-    for (int i = 0; i < size; i++) {
+    // iterate over every bit (left shift necessary since size is in bytes)
+    for (int i = 0; i < size << 3; i++) {
+        // if its not set return its position
         if (!bitmap_bit_is_set(bitmap, size, i)) {
             return i;
         }
@@ -70,6 +74,7 @@ static int find_first_unset_bit(unsigned char* bitmap, int size) {
  *          BITMAP_OP_ERROR (defined in "common.h") on any other errors
  */
 int bitmap_find_first_bit(unsigned char* bitmap, int size, int val) {
+    // call the appropriate helper function
     if (val) {
         return find_first_set_bit(bitmap, size);
     } else {
@@ -111,6 +116,7 @@ int bitmap_set_bit(unsigned char* bitmap, int size, int target_pos)
  */
 int bitmap_clear_bit(unsigned char* bitmap, int size, int target_pos)
 {
+    // make sure parameters are valid
     if (target_pos >= (size << 3)) {
         return BITMAP_OP_ERROR;
     } else {
